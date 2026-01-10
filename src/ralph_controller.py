@@ -8,9 +8,47 @@ from github_sync import get_github_issues, run_command
 
 class RalphController:
     def __init__(self, project_dir="."):
-        self.project_dir = project_dir
-        self.status_file = os.path.join(project_dir, "ralph_status.json")
+        self.project_dir = os.path.abspath(project_dir)
+        self.status_file = os.path.join(self.project_dir, "ralph_status.json")
         self.load_status()
+
+    def gather_context_anchors(self, start_dir):
+        """Recursively collect ARCH.md and LEARNINGS.md from start_dir up to root."""
+        anchors = []
+        current = os.path.abspath(start_dir)
+        
+        while True:
+            for name in ["ARCH.md", "LEARNINGS.md", "README.md"]:
+                p = os.path.join(current, name)
+                if os.path.exists(p):
+                    anchors.append(p)
+            
+            if current == self.project_dir or current == "/":
+                break
+            current = os.path.dirname(current)
+            
+        return list(reversed(anchors)) # Root-first order
+
+    def discovery_scan(self, task_title, search_dir=None):
+        """Heuristic scan to identify relevant files for a task."""
+        root = search_dir or self.project_dir
+        print(f"--- Discovery Scan: '{task_title}' ---")
+        
+        # Simple keywords extraction
+        keywords = re.findall(r'\w+', task_title.lower())
+        relevant_files = []
+        
+        for dirpath, _, filenames in os.walk(root):
+            # Skip hidden and node_modules
+            if ".git" in dirpath or "node_modules" in dirpath:
+                continue
+                
+            for f in filenames:
+                full_p = os.path.join(dirpath, f)
+                if any(kw in full_p.lower() for kw in keywords):
+                    relevant_files.append(full_p)
+        
+        return relevant_files[:10] # Cap at 10 for focus
 
     def load_status(self):
         """Load internal state from ralph_status.json."""
@@ -119,7 +157,7 @@ class RalphController:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Ralph-Antigravity Controller")
-    parser.add_argument("command", choices=["next", "finish", "verify-ui"])
+    parser.add_argument("command", choices=["next", "finish", "verify-ui", "discover"])
     parser.add_argument("summary", nargs="?", help="Summary for finish command")
     parser.add_argument("--scope", help="Filter by project scope (label)")
     parser.add_argument("--milestone", help="Filter by GitHub milestone")
@@ -134,3 +172,12 @@ if __name__ == "__main__":
         controller.finish_task(args.summary)
     elif args.command == "verify-ui":
          print("UI Verification mode enabled. Please capture a screenshot and provide it to the agent.")
+    elif args.command == "discover":
+        if args.summary:
+            ctrl = RalphController()
+            files = ctrl.discovery_scan(args.summary)
+            print("Found relevant files:")
+            for f in files:
+                print(f"- {os.path.relpath(f, ctrl.project_dir)}")
+        else:
+            print("Usage: discover [task_title]")

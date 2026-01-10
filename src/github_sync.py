@@ -97,12 +97,23 @@ def sync_prd_to_github(root_dir="."):
     for prd_path in prd_files:
         print(f"--- Syncing {prd_path} ---")
         rel_path = os.path.relpath(prd_path, root_dir)
-        dir_name = os.path.dirname(rel_path)
+        path_parts = os.path.dirname(rel_path).split(os.sep)
         
-        # Derive scope from directory if not at root
-        scope_label = None
-        if dir_name and dir_name != ".":
-            scope_label = f"scope:{os.path.basename(dir_name)}"
+        # Generate labels from all parent directories (Vertical Slicing)
+        labels = ["ralph-autonomous"]
+        ignore_names = ["apps", "features", "src", "packages", "prd.md", "."]
+        
+        for part in path_parts:
+            if part and part not in ignore_names:
+                # Detect if it's a scope (first level after apps) or a feature
+                if "apps" in path_parts and path_parts.index(part) > path_parts.index("apps"):
+                    # If it's the first thing after apps, it's a scope
+                    if path_parts.index(part) == path_parts.index("apps") + 1:
+                        labels.append(f"scope:{part}")
+                    else:
+                        labels.append(f"feature:{part}")
+                else:
+                    labels.append(f"scope:{part}")
             
         local_tasks = parse_prd(prd_path)
         
@@ -114,13 +125,11 @@ def sync_prd_to_github(root_dir="."):
                 if task['dependency']:
                     body += f"\n\n**Dependency:** Requires #{task['dependency']}"
                 
-                labels = ["ralph-autonomous"]
-                if scope_label:
-                    labels.append(scope_label)
+                task_labels = list(set(labels)) # Unique labels
                 if task['is_ui']:
-                    labels.append("ui-verification")
+                    task_labels.append("ui-verification")
                     
-                create_github_issue(task['title'], body, labels)
+                create_github_issue(task['title'], body, task_labels)
 
 if __name__ == "__main__":
     # Example usage
