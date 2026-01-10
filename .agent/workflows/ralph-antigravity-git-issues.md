@@ -6,30 +6,38 @@ description: Start the autonomous Ralph development loop for the current project
 
 This workflow executes a tight, iterative development loop using Gemini (Antigravity) and GitHub Issues.
 
-## Steps
+## Usage
+
+1. **Initialize**
+   - Copy `prd_template.md` to `prd.md`.
+   - Run `python src/github_sync.py` to push tasks to GitHub.
+
+2. **Loop Iteration**
+   - Run `python src/ralph_controller.py next` to pick the next task.
+   - Antigravity analyzes the fetched task and creates a local `implementation_plan.md`.
+
+3. **Execution**
+   - Perform the code changes specified in the plan.
+   - Run project-specific tests.
+
+4. **Closure**
+   - Run `python src/ralph_controller.py finish "Implementation Summary Here"` to close the GitHub issue and post the summary.
+
+## Workflow Logic (Internal)
 
 1. **Verify State**
    - Read local `prd.md`.
-   - Sync with GitHub Issues using `gh issue list`.
-   - If drift is detected, update local `prd.md`.
+   - Sync with GitHub Issues using `python src/github_sync.py`.
 
 2. **Select Task**
-   - Pick the highest priority open issue.
-   - If no issues are open, terminate with a "Project Complete" summary.
+   - Pick the highest priority open issue using `python src/ralph_controller.py next`.
 
 3. **Plan & Execute**
-   - Create an `implementation_plan.md` for the specific task.
-   - Execute the code changes.
+   - Execute Implementation Plan for that task.
 
 4. **Verify**
-   - Run project-specific tests (e.g., `npm test`, `pytest`).
-   - // turbo
-   - For UI changes, take and analyze a screenshot.
+   - Run verification (tests/screenshots).
 
 5. **Finalize**
-   - Commit changes with message `feat/fix: [Summary] (fixes #[ISSUE_ID])`.
-   - Post "Summary of Work" comment to the GitHub issue.
-   - Close the GitHub issue using `gh issue close [ID]`.
-
-6. **Iterate**
-   - Return to Step 1.
+   - Commit changes referencing the issue ID.
+   - Close the GitHub issue using `python src/ralph_controller.py finish [SUMMARY]`.
