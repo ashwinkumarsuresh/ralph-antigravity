@@ -34,8 +34,15 @@ To use this workflow in your project:
 
 ## 📖 Usage Guide
 
+### Step 0: Brainstorm your PRD (New!)
+If you're starting from scratch, use the brainstorming workflow:
+```bash
+/prd-brainstorm
+```
+I will chat with you to define your goals and automatically generate your `prd.md`.
+
 ### Step 1: Define your PRD
-Create a `prd.md` in your project root with your requirements:
+If you already have requirements, create or edit your `prd.md`:
 ```markdown
 # Product Requirements Document
 - [ ] Feature: Add user authentication
