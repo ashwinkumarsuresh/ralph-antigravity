@@ -62,6 +62,17 @@ Type:
 ```
 **Now watch the magic happen!** I will pick the first task, write the code, and close the task when it's done.
 
+### Step 4: Scaling to Big Projects (Architecture 3.0) 🏗️
+Ralph-Antigravity is built for multi-app monorepos. You can have a `prd.md` in *every* folder:
+- `apps/backend/prd.md`
+- `apps/frontend/prd.md`
+
+1. **Sync All**: Running `/ralph-sync` will find them all and apply `scope:backend` and `scope:frontend` labels on GitHub.
+2. **Targeted Loop**: Focus on one app at a time:
+   ```bash
+   /ralph-antigravity start --scope backend
+   ```
+
 ---
 
 ## 🆘 Troubleshooting (If things go wrong)

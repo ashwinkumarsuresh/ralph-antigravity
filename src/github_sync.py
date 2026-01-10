@@ -80,31 +80,52 @@ def parse_prd(filepath):
             
     return tasks
 
-def sync_prd_to_github(prd_path):
-    """Sync local PRD tasks to GitHub issues."""
-    local_tasks = parse_prd(prd_path)
-    github_issues = get_github_issues()
+def sync_prd_to_github(root_dir="."):
+    """Recursively find all PRDs and sync them to GitHub."""
+    import glob
     
+    # Find all prd.md files recursively, excluding top-level or specific patterns if needed
+    prd_files = glob.glob(os.path.join(root_dir, "**/prd.md"), recursive=True)
+    
+    if not prd_files:
+        print("No prd.md files found.")
+        return
+
+    github_issues = get_github_issues()
     gh_titles = {issue['title'] for issue in github_issues}
     
-    for task in local_tasks:
-        if not task['completed'] and task['title'] not in gh_titles:
-            print(f"Syncing new task to GitHub: {task['title']}")
+    for prd_path in prd_files:
+        print(f"--- Syncing {prd_path} ---")
+        rel_path = os.path.relpath(prd_path, root_dir)
+        dir_name = os.path.dirname(rel_path)
+        
+        # Derive scope from directory if not at root
+        scope_label = None
+        if dir_name and dir_name != ".":
+            scope_label = f"scope:{os.path.basename(dir_name)}"
             
-            body = "Created automatically by Ralph-Antigravity"
-            if task['dependency']:
-                body += f"\n\n**Dependency:** Requires #{task['dependency']}"
-            
-            labels = ["ralph-autonomous"]
-            if task['is_ui']:
-                labels.append("ui-verification")
+        local_tasks = parse_prd(prd_path)
+        
+        for task in local_tasks:
+            if not task['completed'] and task['title'] not in gh_titles:
+                print(f"Syncing new task to GitHub: {task['title']}")
                 
-            create_github_issue(task['title'], body, labels)
+                body = f"Created automatically by Ralph-Antigravity\nSource: `{rel_path}`"
+                if task['dependency']:
+                    body += f"\n\n**Dependency:** Requires #{task['dependency']}"
+                
+                labels = ["ralph-autonomous"]
+                if scope_label:
+                    labels.append(scope_label)
+                if task['is_ui']:
+                    labels.append("ui-verification")
+                    
+                create_github_issue(task['title'], body, labels)
 
 if __name__ == "__main__":
     # Example usage
-    PRD_PATH = "prd.md"
+    ROOT_DIR = "."
     if len(sys.argv) > 1:
-        PRD_PATH = sys.argv[1]
+        ROOT_DIR = sys.argv[1]
         
-    sync_prd_to_github(PRD_PATH)
+    sync_prd_to_github(ROOT_DIR)

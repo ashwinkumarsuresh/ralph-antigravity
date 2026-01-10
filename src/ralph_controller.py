@@ -2,6 +2,8 @@ import json
 import subprocess
 import sys
 import os
+import argparse
+import re
 from github_sync import get_github_issues, run_command
 
 class RalphController:
@@ -23,21 +25,49 @@ class RalphController:
         with open(self.status_file, 'w') as f:
             json.dump(self.state, f, indent=2)
 
-    def get_next_task(self):
-        """Fetch the next task from GitHub Issues (Master)."""
+    def get_next_task(self, scope=None, milestone=None):
+        """Fetch the next task from GitHub Issues with filtering."""
         issues = get_github_issues()
         if not issues:
             return None
         
+        # Filter by Scope (Label)
+        if scope:
+            label_name = f"scope:{scope}" if not scope.startswith("scope:") else scope
+            issues = [i for i in issues if any(l['name'] == label_name for l in i.get('labels', []))]
+            
+        # Filter by Milestone
+        if milestone:
+            issues = [i for i in issues if i.get('milestone') and i['milestone'].get('title') == milestone]
+
+        if not issues:
+            return None
+
         # Sort by number to maintain priority
         issues.sort(key=lambda x: x['number'])
-        return issues[0]
+        
+        # Dependency Check (New for 3.0)
+        for issue in issues:
+            body = issue.get('body', '')
+            dep_match = re.search(r'Requires\s*#(\d+)', body)
+            if dep_match:
+                dep_id = dep_match.group(1)
+                dep_status = run_command(["gh", "issue", "view", dep_id, "--json", "state"])
+                if dep_status:
+                    state = json.loads(dep_status).get('state')
+                    if state == "OPEN":
+                        print(f"Skipping Task #{issue['number']}: Blocked by #{dep_id}")
+                        continue
+            
+            return issue # Return the first non-blocked issue
+            
+        return None
 
-    def start_iteration(self):
-        """Prepare for the next iteration."""
-        task = self.get_next_task()
+    def start_iteration(self, scope=None, milestone=None):
+        """Prepare for the next iteration with optional scope/milestone."""
+        task = self.get_next_task(scope, milestone)
         if not task:
-            print("No more tasks found on GitHub. Workflow Complete!")
+            print("No more tasks found matching criteria. Workflow Idle.")
             return None
         
         self.state["current_task"] = {
@@ -88,15 +118,19 @@ class RalphController:
         self.save_status()
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Ralph-Antigravity Controller")
+    parser.add_argument("command", choices=["next", "finish", "verify-ui"])
+    parser.add_argument("summary", nargs="?", help="Summary for finish command")
+    parser.add_argument("--scope", help="Filter by project scope (label)")
+    parser.add_argument("--milestone", help="Filter by GitHub milestone")
+    
+    args = parser.parse_args()
+    
     controller = RalphController()
     
-    if len(sys.argv) > 1:
-        cmd = sys.argv[1]
-        if cmd == "next":
-            controller.start_iteration()
-        elif cmd == "finish":
-            summary = sys.argv[2] if len(sys.argv) > 2 else None
-            controller.finish_task(summary)
-        elif cmd == "verify-ui":
-             print("UI Verification mode enabled. Please capture a screenshot and provide it to the agent.")
-             # This is a placeholder for multimodal instruction
+    if args.command == "next":
+        controller.start_iteration(scope=args.scope, milestone=args.milestone)
+    elif args.command == "finish":
+        controller.finish_task(args.summary)
+    elif args.command == "verify-ui":
+         print("UI Verification mode enabled. Please capture a screenshot and provide it to the agent.")

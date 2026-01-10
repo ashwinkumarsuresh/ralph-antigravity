@@ -10,7 +10,8 @@ This workflow executes a tight, iterative development loop using Gemini (Antigra
 
 1. **Phase 1: Sync & Select**
    - Run `python src/github_sync.py` to sync local `prd.md` with GitHub Issues.
-   - Run `python src/ralph_controller.py next` to pick the highest priority open issue.
+   - Run `python src/ralph_controller.py next` to pick the next task.
+   - For Monorepos: Run `python src/ralph_controller.py next --scope app-name` to focus on a specific module.
 
 2. **Phase 2: Planning (Required)**
    - Antigravity *must* analyze the fetched task and create an `implementation_plan.md` (Artifact).
