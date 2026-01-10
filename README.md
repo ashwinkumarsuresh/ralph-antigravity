@@ -73,6 +73,8 @@ Ralph-Antigravity is built for multi-app monorepos. You can have a `prd.md` in *
    /ralph-antigravity start --scope backend
    ```
 
+Check out our **[Junior Dev Guide to Complex Projects](docs/COMPLEX_PROJECTS.md)** for deep-dive examples on dependencies, milestones, and monorepo management.
+
 ---
 
 ## 🆘 Troubleshooting (If things go wrong)
