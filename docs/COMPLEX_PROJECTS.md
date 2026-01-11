@@ -110,6 +110,16 @@ To get the most out of Ralph, your tasks shouldn't just be "detailed"—they sho
 *   **S (Small)**: If a human takes >1 hour to code it, the task is **Too Big**. Break it down.
 *   **Vertical Slicing**: Don't just "Update the Database." Instead, "Add Email field to DB and API." Deliver a full slice of functionality!
 
+### 11. Architecture Decision Records (ADRs) 🏛️
+If you make a major change (like switching a database or adding a new library), Ralph will now ask for an **ADR** in the planning phase. 
+
+An ADR explains:
+- **Context**: The problem.
+- **Decision**: Your solution.
+- **Consequences**: The pros and cons.
+
+*Junior Dev Tip*: ADRs are your best friend! They prove to your team *why* you made a choice, so no one can say you just "guessed."
+
 ### 10. Visual Feature Slicing 🍰
 Here is how you should think about your `prd.md` structure:
 

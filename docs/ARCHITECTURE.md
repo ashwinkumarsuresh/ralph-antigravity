@@ -114,7 +114,13 @@ Used for recursive context gathering. The controller crawls the directory tree u
 - **Architecture 4.0**: Context Discovery Scan & Parent Inheritance.
 - **Architecture 6.0**: Professional User Stories & Acceptance Criteria.
 - **Architecture 7.1**: Resilient Branching & INVEST Task Atomization.
+- **Architecture 8.0**: Tiered Documentation (ADRs & Evidence-Based Walkthroughs).
 
 ---
+
+## 6. Tiered Documentation Policy
+As of **Architecture 8.0**, documentation quality scales with task complexity.
+- **Minor Tasks**: Standard summary & AC checklist.
+- **Major Tasks**: Mandatory **ADR** in planning + **STAR Evidence** in walkthrough.
 
 *This architecture ensures that Ralph remains focused, verifiable, and safe for enterprise-scale projects.* 🚀

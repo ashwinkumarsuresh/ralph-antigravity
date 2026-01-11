@@ -79,6 +79,7 @@ For developers, see:
 *   📜 **[Technical Architecture](docs/ARCHITECTURE.md)**
 *   🖥️ **[API Reference](docs/API_REFERENCE.md)**
 *   🚀 **[CI/CD Integration](docs/CICD.md)**
+*   🏛️ **[ADR Guide (Decisions)](docs/ADR_GUIDE.md)**
 *   🛠️ **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)**
 *   📖 **[System Glossary](docs/GLOSSARY.md)**
 *   🤝 **[Contributing Guide](docs/CONTRIBUTING.md)**

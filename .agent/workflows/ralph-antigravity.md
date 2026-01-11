@@ -19,6 +19,9 @@ This workflow executes an iterative development loop with task-specific branchin
 
 3. **Phase 3: Planning (Required)**
    - Analyze requirements and create `implementation_plan.md`.
+   - **Architecture 8.0 (Tiered Docs)**: 
+     - Detect if this is a **Major Change**: New dependency, DB schema change, core logic refactor, or shared module update.
+     - If Major: Include a **## 🏛️ ADR: [Topic]** section with Context, Decision, and Consequences.
    - **Important**: Plan must explicitly mention any documentation files that need updating.
 
 4. **Phase 4: Implementation**
@@ -28,6 +31,9 @@ This workflow executes an iterative development loop with task-specific branchin
 5. **Phase 5: Verification & Walkthrough**
    - Run tests and linting.
    - **Multimodal Check**: Use vision for UI tasks.
+   - **Architecture 8.0 (High-Fidelity Walkthrough)**: 
+     - Use the **STAR Framework** for the summary: Situation, Task, Action, Result.
+     - Include **Intent**, **Evidence** (logs/screenshots), and **Verification** (checklist mapped to AC).
    - Create `walkthrough.md`.
    - **Failure Handling**: If verification fails, run `python src/ralph_controller.py fail [task_id]` and retry Phase 3.
 
