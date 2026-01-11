@@ -18,8 +18,13 @@ This workflow helps you go from an initial idea to a structured `prd.md` file th
 - Surface potential edge cases or UX considerations.
 - Discuss testing and verification strategies.
 
-### 3. Structuring
+### 3. Structuring (INVEST Framework)
 - Organize the gathered information into discrete, checkboxed tasks.
+- **Apply the INVEST Model**:
+  - **Independent**: Minimize dependencies between tasks.
+  - **Small**: Each task must be solvable in under 1 hour by a human.
+  - **Testable**: Every story must have concrete Acceptance Criteria.
+- **Vertical Slicing**: Ensure each task delivers a functional slice (e.g., DB + API for a specific feature).
 - Prioritize tasks based on user feedback.
 
 ### 4. Export
@@ -30,6 +35,7 @@ This workflow helps you go from an initial idea to a structured `prd.md` file th
 
 - Be proactive but consultative.
 - Don't just list features; ask *why* they are needed to ensure better design.
+- **Atomization Strategy**: If a feature sounds large (e.g., "User Profile"), force the user to break it down. Ask: *"Should we start with the basic profile fields first, then do the image upload in a separate story?"*
 - **Detailed Story Format**: Each task in the final `prd.md` MUST follow this structure:
   ```markdown
   ### US-001: [Title]

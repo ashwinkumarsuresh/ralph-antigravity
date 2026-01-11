@@ -20,7 +20,9 @@ Use this workflow to bridge an existing (legacy) project into the Ralph autonomo
 
 ## Phase 3: Task Generation (Build the PRD)
 1. **Debt Discovery**: Scan the codebase for `TODO` or `FIXME` comments.
-2. **Issue Synthesis**: Create a `prd.md` using the **Architecture 6.0 Detailed Format**:
+2. **Issue Synthesis**: Create a `prd.md` using the **Architecture 7.1 INVEST Format**:
+   - **Break down large TODOs**: If a `TODO` is complex, split it into multiple US blocks.
+   - **Apply Vertical Slicing**: Ensure each story is a functional increment.
    ```markdown
    ### US-001: [Title]
    **Description:** [Context from original TODO]

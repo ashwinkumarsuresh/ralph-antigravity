@@ -103,10 +103,11 @@ Architecture 7.0 adds a mandatory **Documentation Phase**.
 
 ---
 
-### 💡 Pro-Tip for Junior Devs:
-Keep your tasks **Small**. If a task takes more than 1 hour for a human, it's too big for a single Ralph iteration. Break it down! 
+### 💡 Pro-Tip: The INVEST & Slicing Framework (Architecture 7.1) 🎯
+To get the most out of Ralph, your tasks shouldn't just be "detailed"—they should be **INVEST**-compliant.
 
-*Good Task*: "Add 'Email' field to Login Form"
-*Bad Task*: "Implement the entire User Authentication system"
+*   **I (Independent)**: Tasks shouldn't wait for other un-started code.
+*   **S (Small)**: If a human takes >1 hour to code it, the task is **Too Big**. Break it down.
+*   **Vertical Slicing**: Don't just "Update the Database." Instead, "Add Email field to DB and API." Deliver a full slice of functionality!
 
 Happy Scaling! 🚀
