@@ -1,7 +1,7 @@
 # 🏗️ Managing Complex Projects with Ralph-Antigravity
 ## A Guide for Junior Developers
 
-So you've graduated from a single-file script to a complex application with multiple modules? Welcome to the big leagues! Ralph-Antigravity is designed to scale with you. This guide explains how to use the **Architecture 4.0** (Context Isolation) features in real-world multi-app environments.
+So you've graduated from a single-file script to a complex application with multiple modules? Welcome to the big leagues! Ralph-Antigravity is designed to scale with you. This guide explains how to use the **Architecture 6.0** (Detailed Stories) features in real-world multi-app environments.
 
 ---
 
@@ -13,15 +13,30 @@ In a professional environment, you often have a "Monorepo" (one repository with 
 my-cool-app/
 ├── apps/
 │   ├── api/             # Backend (Node/Python)
-│   │   └── prd.md       # Backend Tasks
+│   │   └── prd.md       # Backend Tasks (Detailed Format)
 │   ├── web/             # Frontend (React/Next.js)
-│   │   └── prd.md       # Frontend Tasks
+│   │   └── prd.md       # Frontend Tasks (Detailed Format)
 ├── packages/
 │   └── shared-types/    # Shared code between both
 └── LEARNINGS.md         # Global project engineering rules
 ```
 
-### 2. Scoped Synchronization
+### 2. The Detailed PRD Format (Architecture 6.0) 💎
+Ralph now expects tasks to be structured as professional **User Stories**. This makes the AI much more accurate because it understands the *why* and the *how* before it starts.
+
+**Example in `apps/api/prd.md`:**
+```markdown
+### US-001: Create User Login API
+**Description:** As a developer, I want a secure login endpoint so that users can authenticate.
+
+**Acceptance Criteria:**
+- [ ] POST /api/login endpoint exists
+- [ ] Returns JWT on success
+- [ ] Returns 401 on invalid credentials
+- [ ] Typecheck/lint passes
+```
+
+### 3. Scoped Synchronization
 You don't want your backend tasks mixed up with your frontend tasks. Ralph handles this automatically.
 
 **How to sync:**
@@ -29,7 +44,7 @@ You don't want your backend tasks mixed up with your frontend tasks. Ralph handl
 2. Run `/ralph-sync`.
 3. **The Result**: Ralph creates GitHub Issues but adds a `scope:api` or `scope:web` label automatically based on the folder name. 
 
-### 3. Running a "Targeted" Loop
+### 4. Running a "Targeted" Loop
 If you are a Frontend Developer today, you don't want the AI accidentally touching the Backend.
 
 **Command:**
@@ -38,90 +53,34 @@ If you are a Frontend Developer today, you don't want the AI accidentally touchi
 ```
 Ralph will now only look for issues labeled `scope:web`. This keeps the AI focused and prevents it from breaking other modules.
 
-### 4. Handling Cross-App Dependencies
+### 5. Handling Cross-App Dependencies
 Sometimes the Web app needs the API to be finished first. You can communicate this to Ralph using issue numbers.
 
 **In `apps/web/prd.md`:**
 ```markdown
-- [ ] UI: Add Login Screen (requires #12)
+### US-002: Add Login Screen (requires #12)
+**Description:** As a user, I want a login screen so I can access my account.
+
+**Acceptance Criteria:**
+- [ ] Login form with Email/Password
+- [ ] Calls the login API
+- [ ] Redirects to dashboard on success
 ```
-*(Assuming #12 is the "API: Create Login Endpoint" issue)*
+*(Assuming #12 is the "API: Create User Login API" issue)*
 
-**What Ralph Does:**
-- It sees issue #12 is a dependency.
-- Before starting "Add Login Screen", Ralph checks GitHub.
-- If #12 is still **Open**, Ralph skips the UI task and looks for the next non-blocked task.
-- This ensures your project is built in the correct logical order! 🧱
-
-### 5. The Artifact Lifecycle (Your Work Diary)
+### 6. The Artifact Lifecycle (Your Work Diary)
 As a Junior Dev, your biggest value is documenting *how* you solved a problem. Ralph makes this mandatory:
 
 1.  **`implementation_plan.md`**: Before writing code, Ralph drafts a plan. Review this! It's your chance to play "Tech Lead" and correct the AI's approach.
 2.  **`walkthrough.md`**: Once the task is done, a walkthrough is generated. This is automatically posted to the GitHub Issue.
-    - **Tip**: Add a screenshot to the walkthrough for UI tasks. It creates a beautiful visual history of your progress.
 
-### 6. Using Milestones for Sprints
-Working in a 2-week Sprint? Use GitHub Milestones.
-
-**Command:**
-```bash
-/ralph-antigravity start --milestone "v1.0-Alpha"
-```
-This tells Ralph to ignore the "backlog" and only focus on the tasks you've promised for this release.
-
-### 7. Razor-Sharp Focus (Architecture 4.0) 💎
-As a project gets *really* big (thousands of files), I might start to get confused. Architecture 4.0 adds tools to help me keep my focus.
-
-#### A. Discovery Scan
-Instead of showing me everything, Ralph can help me find *only* the relevant files.
-
-**Example Command:**
-```bash
-python src/ralph_controller.py discover "OAuth Login"
-```
-**What happens:**
-- Ralph scans your file tree for anything related to "OAuth" or "Login".
-- It shows you a list: `src/auth.ts`, `docs/api.md`, etc.
-- This creates a "Lens" that makes me work as if I’m in a tiny 5-file project again. Accuracy goes up!
-
-#### B. Context Anchors (`ARCH.md`)
-Instead of one giant rulebook, you can have "Rules of the House" for every folder.
-
-**The Inheritance Trick:**
-- `/LEARNINGS.md`: "Use TypeScript."
-- `/apps/api/ARCH.md`: "Use the Singleton pattern for the DB."
-- `/apps/api/v2/ARCH.md`: "Use JSON:API format for responses."
-
-**What Ralph Does:**
-When I work in `/apps/api/v2/`, I automatically "inherit" all three files. I know the global rules, the API rules, and the V2 specific rules all at once!
-
-#### C. Vertical Feature Slicing
-You can go even deeper than just "App" folders.
-
-**Layout:**
-`apps/web/features/user-profile/prd.md`
-
-When you sync this, Ralph automatically applies `scope:web` and `feature:user-profile`. You can then run:
-```bash
-/ralph-antigravity start --scope web --feature user-profile
-```
-
-### 8. Adopting Ralph in an Existing Project 🛫
+### 7. Adopting Ralph in an Existing Project 🛫
 Don't worry, you don't have to start from zero! You can bring Ralph into a project you've already been working on for months.
 
 #### How to Onboard:
 1. **Copy the Files**: Copy the `src/` folder and the `.agent/workflows/` folder into your project.
-2. **Run the Onboarder**: Type:
-   ```bash
-   /ralph-onboard
-   ```
-3. **What I will do**:
-   - **Convention Check**: I'll read your code to learn your style (tabs vs spaces, etc.).
-   - **Debt Collection**: I'll scan for `TODO` comments and turn them into your first `prd.md`.
-   - **Context Anchoring**: I'll create `ARCH.md` files for your folders to record how they work.
-
-#### Pro-Tip: The "Quarantine" Strategy
-If you have a messy legacy folder, you can tell me to ignore it while I work on new features. This prevents me from "learning" bad habits from the old code!
+2. **Run the Onboarder**: Type: `/ralph-onboard`
+3. **What I will do**: I'll scan your code for formatting patterns and technical debt (`TODO` comments) to build your first `prd.md`.
 
 ---
 

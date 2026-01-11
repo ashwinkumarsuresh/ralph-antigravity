@@ -20,10 +20,14 @@ Use this workflow to bridge an existing (legacy) project into the Ralph autonomo
 
 ## Phase 3: Task Generation (Build the PRD)
 1. **Debt Discovery**: Scan the codebase for `TODO` or `FIXME` comments.
-2. **Issue Synthesis**: Create a `prd.md` by combining:
-   - Your manual goals for the project.
-   - The discovered technical debt.
-   - Proposed refactoring or scaling steps.
+2. **Issue Synthesis**: Create a `prd.md` using the **Architecture 6.0 Detailed Format**:
+   ```markdown
+   ### US-001: [Title]
+   **Description:** [Context from original TODO]
+   **Acceptance Criteria:**
+   - [ ] [Specific fix]
+   - [ ] Typecheck/lint passes
+   ```
 
 ## Phase 4: Ready for Loop
 1. Run `/ralph-sync` to upload the new tasks to GitHub.

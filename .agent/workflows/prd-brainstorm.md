@@ -30,4 +30,15 @@ This workflow helps you go from an initial idea to a structured `prd.md` file th
 
 - Be proactive but consultative.
 - Don't just list features; ask *why* they are needed to ensure better design.
-- Each task in the final `prd.md` should be concise enough to be solved in a single Ralph iteration.
+- **Detailed Story Format**: Each task in the final `prd.md` MUST follow this structure:
+  ```markdown
+  ### US-001: [Title]
+  **Description:** As a [user], I want [feature] so that [benefit].
+
+  **Acceptance Criteria:**
+  - [ ] Specific verifiable criterion
+  - [ ] Another criterion
+  - [ ] Typecheck/lint passes
+  - [ ] **[UI stories only]** Verify in browser using dev-browser skill
+  ```
+- Each task should be concise enough to be solved in a single Ralph iteration.
