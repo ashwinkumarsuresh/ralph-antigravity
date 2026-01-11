@@ -57,6 +57,25 @@ sequenceDiagram
 
 ---
 
+## 3. Task State Transition
+The lifecycle of a requirement from inception to production.
+
+```mermaid
+stateDiagram-v2
+    [*] --> LocalTask: prd.md entry
+    LocalTask --> GitHubIssue: /ralph-sync
+    GitHubIssue --> InProgress: /ralph-antigravity start
+    InProgress --> BranchCreated: controller.next()
+    BranchCreated --> Implementing: architecture logic
+    Implementing --> Verifying: tests/UI checks
+    Verifying --> Implementing: failure (retry < 5)
+    Verifying --> Blocked: failure (retry >= 5)
+    Verifying --> Closed: success
+    Closed --> [*]: Issue comment + Audit
+```
+
+---
+
 ## 3. Data & State Management
 
 ### A. Local State (`ralph_status.json`)
