@@ -1,11 +1,11 @@
 # 🏛️ ADR: Architecture Decision Records (Guide)
 
-In Ralph-Antigravity, we use **Architecture Decision Records (ADRs)** to capture the "Why" behind our technical choices. This is especially important for autonomous agents, so their decisions are transparent and defensible.
+In Aura-Antigravity, we use **Architecture Decision Records (ADRs)** to capture the "Why" behind our technical choices. This is especially important for autonomous agents, so their decisions are transparent and defensible.
 
 ---
 
 ## 📅 When to write an ADR?
-Ralph is instructed to automatically include an ADR section in the `implementation_plan.md` when it detects a **Major Change**. These include:
+Aura is instructed to automatically include an ADR section in the `implementation_plan.md` when it detects a **Major Change**. These include:
 - Adding or removing a library (dependency).
 - Changing a database schema or file storage pattern.
 - Modifying a core security/authentication flow.
@@ -31,8 +31,8 @@ What are the trade-offs?
 
 ---
 
-## 🤖 Ralph's Role
-During the **Planning Phase (Phase 3)**, Ralph will:
+## 🤖 Aura's Role
+During the **Planning Phase (Phase 3)**, Aura will:
 1. Scan the prompt and existing code.
 2. If it meets the "Major" criteria, it will generate the ADR section.
 3. You should review this section carefully in the `implementation_plan.md` before approving implementation.

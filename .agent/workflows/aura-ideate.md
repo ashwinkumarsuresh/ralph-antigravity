@@ -2,7 +2,7 @@
 description: Brainstorm different options and create an Idea Bank before committing to a PRD
 ---
 
-# Ralph Ideation Workflow (Phase 0)
+# Aura Ideation Workflow (Phase 0)
 
 This workflow is for divergent thinking. Use it to explore the "What" and "How" before you are ready to write a structured `prd.md`.
 

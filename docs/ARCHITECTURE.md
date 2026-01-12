@@ -1,18 +1,18 @@
-# 🏗️ Ralph-Antigravity System Architecture
+# 🏗️ Aura-Antigravity System Architecture
 
-This document provides a deep dive into the technical design, data flows, and state management of the Ralph-Antigravity system.
+This document provides a deep dive into the technical design, data flows, and state management of the Aura-Antigravity system.
 
 ---
 
 ## 1. High-Level System Overview
-Ralph-Antigravity follows an **Event-Driven Loop** architecture, where the state is distributed between the local file system and GitHub.
+Aura-Antigravity follows an **Event-Driven Loop** architecture, where the state is distributed between the local file system and GitHub.
 
 ```mermaid
 graph TD
     Z["Vision/Concepts (IDEAS.md)"] --> A["User Requirement (prd.md)"]
     A --> B["GitHub Sync (github_sync.py)"]
     B --> C["GitHub Issues (Source of Truth)"]
-    C --> D["Controller (ralph_controller.py)"]
+    C --> D["Controller (aura_controller.py)"]
     D --> E["Antigravity Agent (Gemini)"]
     E --> F["Implementation Plan"]
     F --> G["Execution & Implementation"]
@@ -36,7 +36,7 @@ sequenceDiagram
 
     C->>G: Fetch Next Open Issue
     G-->>C: US-123 Payload
-    C->>C: Create Task Branch (ralph/issue-123)
+    C->>C: Create Task Branch (aura/issue-123)
     C->>A: Start Implementation Task
     A->>A: Create implementation_plan.md
     A->>A: Execute Code Changes
@@ -51,7 +51,7 @@ sequenceDiagram
         C->>C: Increment Attempt Counter
         C-->>A: Retry Loop Start
     else Failure (Attempt >= 5)
-        C->>G: Label: ralph-blocked
+        C->>G: Label: aura-blocked
         C->>G: Notify User
     end
 ```
@@ -64,8 +64,8 @@ The lifecycle of a requirement from inception to production.
 ```mermaid
 stateDiagram-v2
     [*] --> LocalTask: prd.md entry
-    LocalTask --> GitHubIssue: /ralph-sync
-    GitHubIssue --> InProgress: /ralph-antigravity start
+    LocalTask --> GitHubIssue: /aura-sync
+    GitHubIssue --> InProgress: /aura-antigravity start
     InProgress --> BranchCreated: controller.next()
     BranchCreated --> Implementing: architecture logic
     Implementing --> Verifying: tests/UI checks
@@ -79,12 +79,12 @@ stateDiagram-v2
 
 ## 3. Data & State Management
 
-### A. Local State (`ralph_status.json`)
+### A. Local State (`aura_status.json`)
 Tracks the current session status and internal retry counters.
 ```json
 {
   "iterations": 1,
-  "current_task": { "id": "123", "branch": "ralph/issue-123" },
+  "current_task": { "id": "123", "branch": "aura/issue-123" },
   "task_attempts": { "123": 1 }
 }
 ```
@@ -102,13 +102,13 @@ Used for recursive context gathering. The controller crawls the directory tree u
 | Component | Responsibility | Technical Stack |
 | :--- | :--- | :--- |
 | **`github_sync.py`** | Parses `prd.md` blocks; Syncs to GitHub Issues. | Python3, `gh` CLI |
-| **`ralph_controller.py`** | Manages the task loop, branching, and retries. | Python3, `subprocess` |
+| **`aura_controller.py`** | Manages the task loop, branching, and retries. | Python3, `subprocess` |
 | **Antigravity Workflows** | Orchestrates the AI's step-by-step logic. | Markdown-driven LLM instructions |
 | **Artifacts** | Planning and post-implementation audit trails. | Markdown (`.md`) |
 
 ---
 
-## 5. Evolution of Ralph
+## 5. Evolution of Aura
 
 - **Architecture 1.0**: Simple local `prd.md` list.
 - **Architecture 3.0**: GitHub Issues integration & Monorepo labels.
@@ -125,4 +125,4 @@ As of **Architecture 8.0**, documentation quality scales with task complexity.
 - **Minor Tasks**: Standard summary & AC checklist.
 - **Major Tasks**: Mandatory **ADR** in planning + **STAR Evidence** in walkthrough.
 
-*This architecture ensures that Ralph remains focused, verifiable, and safe for enterprise-scale projects.* 🚀
+*This architecture ensures that Aura remains focused, verifiable, and safe for enterprise-scale projects.* 🚀

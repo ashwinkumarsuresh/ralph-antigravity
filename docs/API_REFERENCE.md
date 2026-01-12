@@ -1,10 +1,10 @@
-# 📟 Ralph-Antigravity API Reference
+# 📟 Aura-Antigravity API Reference
 
-This document provides a technical reference for the Python scripts that power the Ralph-Antigravity loop.
+This document provides a technical reference for the Python scripts that power the Aura-Antigravity loop.
 
 ---
 
-## 1. `ralph_controller.py`
+## 1. `aura_controller.py`
 The central manager for task selection, branching, and retry logic.
 
 ### Commands
@@ -41,7 +41,7 @@ If no directory is provided, it defaults to `.`.
 
 ---
 
-## 3. Internal State (`ralph_status.json`)
+## 3. Internal State (`aura_status.json`)
 The controller maintains a local JSON file to track persistence across agent turns.
 
 | Field | Type | Description |

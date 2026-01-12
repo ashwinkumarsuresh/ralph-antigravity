@@ -10,5 +10,5 @@ Edit this file to define your project requirements. Each checkboxed item will be
 
 ## Project Status
 
-- Iterate using `/ralph-antigravity-git-issues start`
+- Iterate using `/aura-antigravity-git-issues start`
 - View individual issues on GitHub for detailed audit trails.

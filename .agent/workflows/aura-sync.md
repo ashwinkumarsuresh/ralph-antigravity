@@ -2,7 +2,7 @@
 description: Sync local tasks from prd.md to GitHub Issues
 ---
 
-# Ralph Sync Workflow
+# Aura Sync Workflow
 
 This workflow synchronizes your local `prd.md` checklist with GitHub Issues.
 
@@ -20,4 +20,4 @@ This workflow synchronizes your local `prd.md` checklist with GitHub Issues.
 
 3. **Confirmation**
    - Report how many new issues were created.
-   - Remind the user they can now start the loop using `/ralph-antigravity`.
+   - Remind the user they can now start the loop using `/aura-antigravity`.

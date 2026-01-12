@@ -6,10 +6,10 @@ import argparse
 import re
 from github_sync import get_github_issues, run_command
 
-class RalphController:
+class AuraController:
     def __init__(self, project_dir="."):
         self.project_dir = os.path.abspath(project_dir)
-        self.status_file = os.path.join(self.project_dir, "ralph_status.json")
+        self.status_file = os.path.join(self.project_dir, "aura_status.json")
         self.load_status()
 
     def gather_context_anchors(self, start_dir):
@@ -51,7 +51,7 @@ class RalphController:
         return relevant_files[:10] # Cap at 10 for focus
 
     def load_status(self):
-        """Load internal state from ralph_status.json."""
+        """Load internal state from aura_status.json."""
         if os.path.exists(self.status_file):
             with open(self.status_file, 'r') as f:
                 self.state = json.load(f)
@@ -59,7 +59,7 @@ class RalphController:
             self.state = {"iterations": 0, "current_task": None, "task_attempts": {}}
 
     def save_status(self):
-        """Save internal state to ralph_status.json."""
+        """Save internal state to aura_status.json."""
         with open(self.status_file, 'w') as f:
             json.dump(self.state, f, indent=2)
 
@@ -121,14 +121,14 @@ class RalphController:
         if attempts >= 5:
             print(f"!!! Task #{task_id} has failed 5 times. Marking as blocked.")
             # Ensure label exists (import if needed or use gh directly)
-            run_command(["gh", "label", "create", "ralph-blocked", "--color", "ff0000"]) 
-            run_command(["gh", "issue", "edit", task_id, "--add-label", "ralph-blocked"])
-            run_command(["gh", "issue", "comment", task_id, "--body", "### ❌ Autonomous Failure\nRalph has attempted this task 5 times and failed to verify. Manual review required."])
+            run_command(["gh", "label", "create", "aura-blocked", "--color", "ff0000"]) 
+            run_command(["gh", "issue", "edit", task_id, "--add-label", "aura-blocked"])
+            run_command(["gh", "issue", "comment", task_id, "--body", "### ❌ Autonomous Failure\nAura has attempted this task 5 times and failed to verify. Manual review required."])
             return self.start_iteration(scope, milestone) # Now get_next_task will skip it
 
         # Create task-specific branch
         clean_title = re.sub(r'[^a-zA-Z0-9-]', '-', task["title"].lower())[:30]
-        branch_name = f"ralph/issue-{task_id}-{clean_title}"
+        branch_name = f"aura/issue-{task_id}-{clean_title}"
         print(f"Creating/Switching to branch: {branch_name}")
         run_command(["git", "checkout", "-b", branch_name])
         
@@ -196,7 +196,7 @@ class RalphController:
         self.save_status()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Ralph-Antigravity Controller")
+    parser = argparse.ArgumentParser(description="Aura-Antigravity Controller")
     parser.add_argument("command", choices=["next", "finish", "verify-ui", "discover", "fail"])
     parser.add_argument("summary", nargs="?", help="Summary for finish command")
     parser.add_argument("--scope", help="Filter by project scope (label)")
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    controller = RalphController()
+    controller = AuraController()
     
     if args.command == "next":
         controller.start_iteration(scope=args.scope, milestone=args.milestone)
@@ -214,13 +214,13 @@ if __name__ == "__main__":
          print("UI Verification mode enabled. Please capture a screenshot and provide it to the agent.")
     elif args.command == "fail":
         if args.summary: # Using summary arg as task_id for this command
-            ctrl = RalphController()
+            ctrl = AuraController()
             ctrl.report_failure(args.summary)
         else:
             print("Usage: fail [task_id]")
     elif args.command == "discover":
         if args.summary:
-            ctrl = RalphController()
+            ctrl = AuraController()
             files = ctrl.discovery_scan(args.summary)
             print("Found relevant files:")
             for f in files:

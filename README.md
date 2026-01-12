@@ -1,6 +1,6 @@
-# 🤖 Ralph-Antigravity: Your AI Developer 🚀
+# 🤖 Aura-Antigravity: Your AI Developer 🚀
 
-**Ralph-Antigravity** is like having a robot developer who works on your project while you sleep (or have a coffee! ☕). It takes your "Idea List" and turns it into real code, one small piece at a time.
+**Aura-Antigravity** is like having a robot developer who works on your project while you sleep (or have a coffee! ☕). It takes your "Idea List" and turns it into real code, one small piece at a time.
 
 ---
 
@@ -11,7 +11,7 @@ Imagine you are building a website. You have a list of things to do:
 2. "Change the background color"
 3. "Add a 'Contact Us' button"
 
-Usually, you would have to write all that code yourself. **Ralph-Antigravity** does the hard work for you. It reads your list, writes the code, tests it to make sure it works, and then tells you it's finished.
+Usually, you would have to write all that code yourself. **Aura-Antigravity** does the hard work for you. It reads your list, writes the code, tests it to make sure it works, and then tells you it's finished.
 
 ## ✨ Why even use this?
 
@@ -35,7 +35,7 @@ You need the **GitHub CLI** (a tool that lets the AI talk to GitHub).
 
 ### 3. Initialize
 Tell Antigravity (your AI assistant):
-*"Antigravity, initialize ralph-antigravity for this project."*
+*"Antigravity, initialize aura-antigravity for this project."*
 
 ---
 
@@ -44,7 +44,7 @@ Tell Antigravity (your AI assistant):
 ### Phase 0: Ideate & Explore 🧠
 If you have a rough idea but aren't ready for a technical list yet, type:
 ```bash
-/ralph-ideate
+/aura-ideate
 ```
 I will help you explore different options and create an `IDEAS.md` "Bank" for your project.
 
@@ -58,26 +58,26 @@ I will chat with you about your idea (reading your `IDEAS.md` if it exists) and 
 ### Step 2: Upload your tasks ☁️
 Once your `prd.md` list is ready, type:
 ```bash
-/ralph-sync
+/aura-sync
 ```
 This sends your list to GitHub as "Issues" (a fancy word for a To-Do list on the web).
 
 ### Step 3: Start the robot! 🤖
 Type:
 ```bash
-/ralph-antigravity start
+/aura-antigravity start
 ```
 **Now watch the magic happen!** I will pick the first task, write the code, and close the task when it's done.
 
 ### Step 4: Scaling to Big Projects (Architecture 3.0) 🏗️
-Ralph-Antigravity is built for multi-app monorepos. You can have a `prd.md` in *every* folder:
+Aura-Antigravity is built for multi-app monorepos. You can have a `prd.md` in *every* folder:
 - `apps/backend/prd.md`
 - `apps/frontend/prd.md`
 
-1. **Sync All**: Running `/ralph-sync` will find them all and apply `scope:backend` and `scope:frontend` labels on GitHub.
+1. **Sync All**: Running `/aura-sync` will find them all and apply `scope:backend` and `scope:frontend` labels on GitHub.
 2. **Targeted Loop**: Focus on one app at a time:
    ```bash
-   /ralph-antigravity start --scope backend
+   /aura-antigravity start --scope backend
    ```
 
 Check out our **[Junior Dev Guide to Complex Projects](docs/COMPLEX_PROJECTS.md)** for deep-dive examples on dependencies, milestones, and monorepo management. 

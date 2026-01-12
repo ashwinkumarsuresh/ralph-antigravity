@@ -1,20 +1,20 @@
-# 📖 Ralph-Antigravity Glossary
+# 📖 Aura-Antigravity Glossary
 
-This glossary defines the specific terminology used throughout the Ralph-Antigravity system.
+This glossary defines the specific terminology used throughout the Aura-Antigravity system.
 
 ---
 
 ### **A**
-*   **Acceptance Criteria (AC)**: A set of verifiable conditions that a User Story must meet to be considered complete. Ralph checks these locally before closing a task.
-*   **Architecture 7.1**: The current technical version of Ralph, featuring task-specific branching, INVEST slicing, and 5-attempt retry resilience.
+*   **Acceptance Criteria (AC)**: A set of verifiable conditions that a User Story must meet to be considered complete. Aura checks these locally before closing a task.
+*   **Architecture 7.1**: The current technical version of Aura, featuring task-specific branching, INVEST slicing, and 5-attempt retry resilience.
 *   **Artifacts**: Structured Markdown files (`implementation_plan.md`, `walkthrough.md`, `task.md`) used by the AI to track progress and document decisions.
 
 ### **C**
-*   **Context Anchors**: Persistent rulebooks (`ARCH.md` or `LEARNINGS.md`) located in directory hierarchies. Ralph inherits these rules recursively to understand local project conventions.
-*   **Controller**: The `ralph_controller.py` script that manages the Git lifecycle, task selection, and retry logic.
+*   **Context Anchors**: Persistent rulebooks (`ARCH.md` or `LEARNINGS.md`) located in directory hierarchies. Aura inherits these rules recursively to understand local project conventions.
+*   **Controller**: The `aura_controller.py` script that manages the Git lifecycle, task selection, and retry logic.
 
 ### **D**
-*   **Discovery Scan**: A heuristic search phase where Ralph identifies the most relevant files for a task based on keywords, reducing noise in large codebases.
+*   **Discovery Scan**: A heuristic search phase where Aura identifies the most relevant files for a task based on keywords, reducing noise in large codebases.
 
 ### **G**
 *   **GitHub Sync**: The process of converting local `prd.md` blocks into GitHub Issues using `github_sync.py`.

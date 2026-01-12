@@ -1,4 +1,4 @@
-# 🆘 Ralph-Antigravity Troubleshooting Guide
+# 🆘 Aura-Antigravity Troubleshooting Guide
 
 Encountering issues with the autonomous loop? Most problems are related to environment setup or permissioning.
 
@@ -23,15 +23,15 @@ Encountering issues with the autonomous loop? Most problems are related to envir
 ## 2. Controller & Git Issues
 
 ### **Error: `Git checkout failed (uncommitted changes)`**
-*   **Cause**: Ralph cannot switch to a task branch because your `main` branch has uncommitted local changes.
-*   **Fix**: Commit or stash your local changes before starting the Ralph loop.
+*   **Cause**: Aura cannot switch to a task branch because your `main` branch has uncommitted local changes.
+*   **Fix**: Commit or stash your local changes before starting the Aura loop.
 
 ### **Error: `Task #X has failed 5 times`**
 *   **Cause**: The AI is stuck in a loop where it cannot pass its own verification steps.
 *   **Fix**: 
     1.  Check the GitHub Issue comment to see the last failure error.
     2.  Manually fix the code on the task branch.
-    3.  Manually close the issue or reset the attempt counter in `ralph_status.json`.
+    3.  Manually close the issue or reset the attempt counter in `aura_status.json`.
 
 ---
 
@@ -47,4 +47,4 @@ Encountering issues with the autonomous loop? Most problems are related to envir
 
 ---
 
-*Still stuck? Try running with `python src/ralph_controller.py --help` or check the logs.* 🚀
+*Still stuck? Try running with `python src/aura_controller.py --help` or check the logs.* 🚀

@@ -4,7 +4,7 @@ description: Brainstorm and generate a PRD file with Antigravity
 
 # PRD Brainstorming Workflow
 
-This workflow helps you go from an initial idea to a structured `prd.md` file that can be used with the Ralph-Antigravity loop.
+This workflow helps you go from an initial idea to a structured `prd.md` file that can be used with the Aura-Antigravity loop.
 
 ## Workflow Phases
 
@@ -48,4 +48,4 @@ This workflow helps you go from an initial idea to a structured `prd.md` file th
   - [ ] Typecheck/lint passes
   - [ ] **[UI stories only]** Verify in browser using dev-browser skill
   ```
-- Each task should be concise enough to be solved in a single Ralph iteration.
+- Each task should be concise enough to be solved in a single Aura iteration.

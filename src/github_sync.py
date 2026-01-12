@@ -128,7 +128,7 @@ def sync_prd_to_github(root_dir="."):
         path_parts = os.path.dirname(rel_path).split(os.sep)
         
         # Generate labels from all parent directories (Vertical Slicing)
-        labels = ["ralph-autonomous"]
+        labels = ["aura-autonomous"]
         ignore_names = ["apps", "features", "src", "packages", "prd.md", "."]
         
         for part in path_parts:
@@ -156,7 +156,7 @@ def sync_prd_to_github(root_dir="."):
                     checkbox = "[ ]" if status.lower() != 'x' else "[x]"
                     body += f"- {checkbox} {ac_text}\n"
                 
-                body += f"\n---\nCreated automatically by Ralph-Antigravity\nSource: `{rel_path}`"
+                body += f"\n---\nCreated automatically by Aura-Antigravity\nSource: `{rel_path}`"
                 
                 if task['dependency']:
                     body += f"\n\n**Dependency:** Requires #{task['dependency']}"

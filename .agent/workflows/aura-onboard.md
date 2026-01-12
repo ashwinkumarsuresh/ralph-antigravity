@@ -1,10 +1,10 @@
 ---
-description: Onboard an existing project to the Ralph-Antigravity loop
+description: Onboard an existing project to the Aura-Antigravity loop
 ---
 
-# 🛫 Ralph-Antigravity Onboarding Workflow
+# 🛫 Aura-Antigravity Onboarding Workflow
 
-Use this workflow to bridge an existing (legacy) project into the Ralph autonomous loop.
+Use this workflow to bridge an existing (legacy) project into the Aura autonomous loop.
 
 ## Phase 1: Landscape Discovery
 1. **Context Scan**: Antigravity, scan the current project structure and identify the tech stack (e.g., Python, React, Go).
@@ -32,8 +32,8 @@ Use this workflow to bridge an existing (legacy) project into the Ralph autonomo
    ```
 
 ## Phase 4: Ready for Loop
-1. Run `/ralph-sync` to upload the new tasks to GitHub.
-2. Run `/ralph-antigravity start` to begin the first autonomous iteration!
+1. Run `/aura-sync` to upload the new tasks to GitHub.
+2. Run `/aura-antigravity start` to begin the first autonomous iteration!
 
 ---
 > [!TIP]
